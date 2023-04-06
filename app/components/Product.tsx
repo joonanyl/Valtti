@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 
-type PostProps = {
+type ProductProps = {
   id: string
   name: string
   avatar: string
@@ -11,14 +11,23 @@ type PostProps = {
   reviews?: {
     id: string
     createdAt: string
-    postid: string
+    productId: string
     content: string
     rating: number
   }[]
 }
 
-// Katso Logged.tsx miten korjata tsc errorit
-export default function Post({ id, name, avatar, title, reviews }: PostProps) {
+export default function Product({
+  id,
+  name,
+  avatar,
+  title,
+  reviews,
+}: ProductProps) {
+  const ratingAverage: number = reviews
+    ? reviews?.reduce((acc, review) => acc + review.rating, 0) / reviews?.length
+    : 0
+
   return (
     <div className="bg-white my-8 p-8 rounded-lg">
       <div className="flex items-center gap-2">
@@ -35,8 +44,13 @@ export default function Post({ id, name, avatar, title, reviews }: PostProps) {
         <p className="break-all">{title}</p>
       </div>
       <div className="flex gap-4 cursor-pointer items-center">
-        <Link href={`/post/${id}`}>
-          <p className="text-sm font-bold text-gray-700">{`Reviews (${reviews?.length})`}</p>
+        <Link href={`/product/${id}`}>
+          <div className="flex items-center gap-2">
+            <p className="text-lg font-bold text-gray-700">
+              {`⭐️ ${ratingAverage.toFixed(1)}`}
+            </p>
+            <p className="text-sm font-bold text-gray-700">{`(${reviews?.length})`}</p>
+          </div>
         </Link>
       </div>
     </div>

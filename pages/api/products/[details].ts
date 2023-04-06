@@ -8,9 +8,11 @@ export default async function handler(
   if (req.method === "GET") {
     try {
       console.log(req.query)
-      const data = await prisma.post.findUnique({
+      const data = await prisma.product.findUnique({
         where: {
-          id: req.query.details,
+          id: Array.isArray(req.query.details)
+            ? req.query.details[0]
+            : req.query.details,
         },
         include: {
           user: true,
@@ -28,7 +30,7 @@ export default async function handler(
     } catch (err) {
       res
         .status(404)
-        .json({ err: "Error has occurred while fetching the posts." })
+        .json({ err: "Error has occurred while fetching the products." })
     }
   }
 }

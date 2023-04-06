@@ -7,40 +7,40 @@ import { useMutation, useQueryClient } from "@tanstack/react-query"
 import axios from "axios"
 import { toast } from "react-hot-toast"
 
-type EditProps = {
+type EditProductProps = {
   id: string
   avatar: string
   name: string
   title: string
   reviews?: {
     id: string
-    postId: string
+    productId: string
     userId: string
   }[]
 }
 
-export default function EditPost({
+export default function EditProduct({
   id,
   avatar,
   name,
   title,
   reviews,
-}: EditProps) {
+}: EditProductProps) {
   const [toggle, setToggle] = useState(false)
   const queryClient = useQueryClient()
 
   const { mutate } = useMutation(
     async (id: string) =>
-      await axios.delete("/api/posts/deletePost", { data: id }),
+      await axios.delete("/api/products/deleteProduct", { data: id }),
     {
       onError: (error) => {
         console.log(error)
-        toast.error("Error deleting the post")
+        toast.error("Error deleting the product")
       },
       onSuccess: (data) => {
         console.log(data)
-        toast.success("The post has been deleted")
-        queryClient.invalidateQueries(["authPosts"])
+        toast.success("The product has been deleted")
+        queryClient.invalidateQueries(["userProducts"])
       },
     }
   )

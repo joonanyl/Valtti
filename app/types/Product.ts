@@ -1,4 +1,4 @@
-export type PostType = {
+export type ProductType = {
   id: string
   title: string
   updatedAt?: string
@@ -11,7 +11,7 @@ export type PostType = {
   reviews?: {
     id: string
     createdAt: string
-    postid: string
+    productId: string
     content: string
     rating: number
     userId: string

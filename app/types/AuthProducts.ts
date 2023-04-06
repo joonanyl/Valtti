@@ -1,16 +1,16 @@
-export type AuthPosts = {
+export type AuthProduct = {
   email: string
   id: string
   image: string
   name: string
-  posts: {
+  products: {
     createdAt: string
     id: string
     title: string
     reviews?: {
       createdAt: string
       id: string
-      postId: string
+      productId: string
       title: string
       userId: string
     }[]

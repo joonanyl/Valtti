@@ -7,7 +7,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.method === "GET") {
+  if (req.method === "DELETE") {
     const session = await getServerSession(req, res, authOptions)
 
     if (!session)
@@ -16,24 +16,18 @@ export default async function handler(
         .json({ message: "You need to be signed in to access this page." })
 
     try {
-      const data = await prisma.user.findUnique({
-        where: { email: session.user!.email! },
-        include: {
-          posts: {
-            orderBy: {
-              createdAt: "desc",
-            },
-            include: {
-              reviews: true,
-            },
-          },
+      const productId = req.body
+      console.log(productId)
+      const result = await prisma.product.delete({
+        where: {
+          id: productId,
         },
       })
-      return res.status(200).json(data)
+      return res.status(200).json(result)
     } catch (err) {
       res
         .status(404)
-        .json({ err: "Error has occurred while fetching the posts." })
+        .json({ err: "Error has occurred while deleting the product." })
     }
   }
 }

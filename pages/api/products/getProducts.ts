@@ -7,7 +7,7 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     try {
-      const data = await prisma.post.findMany({
+      const data = await prisma.product.findMany({
         include: {
           user: true,
           reviews: true,
@@ -18,7 +18,9 @@ export default async function handler(
       })
       res.status(200).json(data)
     } catch (err) {
-      res.status(403).json({ err: "Error fetching posts" })
+      console.log(err)
+
+      res.status(400).json({ err: "Error fetching products" })
     }
   }
 }

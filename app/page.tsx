@@ -1,30 +1,32 @@
 "use client"
 
-import axios from "axios"
-import AddPost from "./components/AddPost"
+import axios, { AxiosError } from "axios"
+import AddProduct from "./components/AddProduct"
 import { useQuery } from "@tanstack/react-query"
-import Post from "./components/Post"
-import { PostsType } from "./types/Posts"
+import Product from "./components/Product"
+import { ProductsType } from "./types/Products"
 
-const allPosts = async () => {
-  const response = await axios.get("/api/posts/getPosts")
+const getProducts = async () => {
+  const response = await axios.get("/api/products/getProducts")
   return response.data
 }
 
 export default function Home() {
-  const { data, error, isLoading } = useQuery<PostsType[]>({
-    queryFn: allPosts,
-    queryKey: ["posts"],
+  const { data, error, isLoading } = useQuery<ProductsType[], AxiosError>({
+    queryFn: getProducts,
+    queryKey: ["products"],
   })
 
-  if (error) return error
-  if (isLoading) return "Loading..."
+  if (error) return <div>Error: {error.message}</div>
+  if (isLoading) return <p>Loading...</p>
+
+  console.log(data)
 
   return (
     <main>
-      <AddPost />
+      <AddProduct />
       {data?.map((post) => (
-        <Post
+        <Product
           key={post.id}
           id={post.id}
           name={post.user.name}

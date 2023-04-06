@@ -5,6 +5,8 @@ type ToggleProps = {
   setToggle: (toggle: boolean) => void
 }
 
+// TO BE REPLACED: DaisyUI Modal
+
 export default function Toggle({ deletePost, setToggle }: ToggleProps) {
   return (
     <div
