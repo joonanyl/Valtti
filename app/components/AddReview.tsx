@@ -10,13 +10,15 @@ type ReviewProps = {
 }
 
 type Review = {
-  title: string
+  content: string
   productId: string
+  rating: number
 }
 
 export default function AddReview({ id }: ReviewProps) {
-  const [title, setTitle] = useState("")
+  const [content, setContent] = useState("")
   const [isDisabled, setIsDisabled] = useState(false)
+  const [rating, setRating] = useState(1)
 
   const queryClient = useQueryClient()
 
@@ -30,7 +32,7 @@ export default function AddReview({ id }: ReviewProps) {
         }
       },
       onSuccess: (data) => {
-        setTitle("")
+        setContent("")
         setIsDisabled(false)
         toast.success("Created your review!")
         queryClient.invalidateQueries(["productDetails"])
@@ -38,41 +40,89 @@ export default function AddReview({ id }: ReviewProps) {
     }
   )
 
-  const handleClick = (e: React.FormEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
     const { value } = e.target as HTMLInputElement
-    setTitle(value)
+    setContent(value)
+  }
+
+  const handleRatingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(e.target.value)
+    console.log(value)
+    setRating(value)
   }
 
   const submitReview = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsDisabled(true)
-    mutate({ title, productId: id })
+    mutate({ content, productId: id, rating })
   }
 
   return (
-    <form onSubmit={submitReview} className="my-8 p-4 bg-gray-300 rounded-md">
-      <h3>Add a review</h3>
+    <form
+      onSubmit={submitReview}
+      className="my-8 p-4 bg-base-300 text-white rounded-md">
+      <h3 className="font-bold text-xl text-center">Add a review</h3>
       <div className="flex flex-col my-2">
         <input
-          onChange={handleClick}
-          value={title}
+          onChange={handleInputChange}
+          value={content}
           type="text"
-          name="title"
-          className="p-4 text-lg rounded-md my-2"
+          name="content"
+          className="p-6 mx-4 text-lg rounded-md my-2"
           placeholder="Write your review here..."
         />
+        <div className="flex flex-col my-2">
+          <label className="font-bold text-md my-2">Rating</label>
+          <div className="rating">
+            <input
+              type="radio"
+              name="rating-2"
+              value={1}
+              className="mask mask-star-2 bg-orange-400"
+              onChange={handleRatingChange}
+            />
+            <input
+              type="radio"
+              name="rating-2"
+              value={2}
+              className="mask mask-star-2 bg-orange-400"
+              onChange={handleRatingChange}
+            />
+            <input
+              type="radio"
+              name="rating-2"
+              value={3}
+              className="mask mask-star-2 bg-orange-400"
+              onChange={handleRatingChange}
+            />
+            <input
+              type="radio"
+              name="rating-2"
+              value={4}
+              className="mask mask-star-2 bg-orange-400"
+              onChange={handleRatingChange}
+            />
+            <input
+              type="radio"
+              name="rating-2"
+              value={5}
+              className="mask mask-star-2 bg-orange-400"
+              onChange={handleRatingChange}
+            />
+          </div>
+        </div>
       </div>
       <div className="flex items-center gap-2">
         <button
           disabled={isDisabled}
-          className="text-sm bg-teal-600 text-white py-2 px-6 rounded-xl disabled:opacity-25"
+          className="text-sm bg-primary text-white py-2 px-6 rounded-xl disabled:opacity-25"
           type="submit">
           Create
         </button>
         <p
           className={`font-bold text-sm ${
-            title.length > 300 ? "text-red-700" : "text-gray-700"
-          }`}>{`${title.length} / 300`}</p>
+            content.length > 300 ? "text-red-700" : "text-gray-700"
+          }`}>{`${content.length} / 300`}</p>
       </div>
     </form>
   )

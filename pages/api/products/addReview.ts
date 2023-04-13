@@ -21,7 +21,9 @@ export default async function handler(
   console.log(user)
 
   if (req.method === "POST") {
-    const { title, productId } = req.body.data
+    const { title, productId, rating } = req.body.data
+    console.log(rating)
+
     if (!title.length) {
       return res
         .status(401)
@@ -33,7 +35,7 @@ export default async function handler(
           content: title,
           userId: user!.id,
           productId,
-          rating: 3,
+          rating,
         },
       })
       res.status(201).json(result)

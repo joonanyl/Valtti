@@ -20,7 +20,7 @@ export default function UserProducts() {
   console.log(data)
 
   return (
-    <div>
+    <div className="flex justify-center align-middle gap-6">
       {data?.products?.map((product) => (
         <EditProduct
           key={product.id}

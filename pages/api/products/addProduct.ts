@@ -18,7 +18,7 @@ export default async function handler(
         .status(401)
         .json({ message: "You need to be signed in to create a product." })
 
-    const { title, description, price, location } = req.body
+    const { title, description, price, location, profession } = req.body
     console.log(req.body)
 
     const user = await prisma.user.findUnique({
@@ -53,6 +53,7 @@ export default async function handler(
             price,
             location,
             userId: user.id,
+            profession,
           },
         })
         res.status(201).json(result)

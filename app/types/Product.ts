@@ -1,25 +1,17 @@
-export type ProductType = {
+import { Order } from "./Order"
+import { User } from "./User"
+import { Review } from "./Review"
+
+export interface Product {
   id: string
+  createdAt: Date
+  updatedAt: Date
   title: string
-  updatedAt?: string
-  user: {
-    id: string
-    name: string
-    email: string
-    image: string
-  }
-  reviews?: {
-    id: string
-    createdAt: string
-    productId: string
-    content: string
-    rating: number
-    userId: string
-    user: {
-      id: string
-      name: string
-      email: string
-      image: string
-    }
-  }[]
+  description?: string
+  price?: number
+  location?: string
+  profession?: string
+  user: User
+  reviews?: Review[]
+  orders?: Order[]
 }

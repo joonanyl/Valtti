@@ -10,7 +10,7 @@ export default function CreateProduct() {
   const [description, setDescription] = useState("")
   const [price, setPrice] = useState(0)
   const [location, setLocation] = useState("")
-  const [field, setField] = useState("")
+  const [profession, setProfession] = useState("")
   const [isDisabled, setIsDisabled] = useState(false)
   const queryClient = useQueryClient()
 
@@ -19,6 +19,7 @@ export default function CreateProduct() {
     description: string
     price: number
     location: string
+    profession: string
   }
 
   const { mutate } = useMutation(
@@ -44,11 +45,11 @@ export default function CreateProduct() {
   const submitProduct = (e: React.FormEvent) => {
     e.preventDefault()
     setIsDisabled(true)
-    mutate({ title, description, price, location })
+    mutate({ title, description, price, location, profession })
   }
 
   return (
-    <form onSubmit={submitProduct} className="bg-white my-8 p-8 rounded-md">
+    <form onSubmit={submitProduct} className="bg-gray-700 my-8 p-8 rounded-md">
       <h1 className="font-bold text-lg text-center py-2">Add a new listing</h1>
       <div className="flex flex-col my-4">
         <p className="font-bold text-md">Title</p>
@@ -100,13 +101,13 @@ export default function CreateProduct() {
           className="p-4 text-lg rounded-md my-2 bg-gray-200"></input>
       </div>
       <div className="flex flex-col my-4">
-        <p className="font-bold text-md">Field</p>
+        <p className="font-bold text-md">profession</p>
         <input
           type="text"
-          onChange={(e) => setField(e.target.value)}
-          name="field"
-          value={field}
-          placeholder="Field of work"
+          onChange={(e) => setProfession(e.target.value)}
+          name="profession"
+          value={profession}
+          placeholder="profession of work"
           className="p-4 text-lg rounded-md my-2 bg-gray-200"></input>
       </div>
       <button

@@ -7,7 +7,6 @@ export default async function handler(
 ) {
   if (req.method === "GET") {
     try {
-      console.log(req.query)
       const data = await prisma.product.findUnique({
         where: {
           id: Array.isArray(req.query.details)

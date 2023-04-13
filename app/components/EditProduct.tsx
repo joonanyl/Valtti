@@ -4,7 +4,7 @@ import Image from "next/image"
 import { useState } from "react"
 import Toggle from "../dashboard/Toggle"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
-import axios from "axios"
+import axios, { AxiosError } from "axios"
 import { toast } from "react-hot-toast"
 
 type EditProductProps = {
@@ -35,7 +35,9 @@ export default function EditProduct({
     {
       onError: (error) => {
         console.log(error)
-        toast.error("Error deleting the product")
+        if (error instanceof AxiosError) {
+          toast.error("Error deleting the product")
+        }
       },
       onSuccess: (data) => {
         console.log(data)
@@ -51,7 +53,7 @@ export default function EditProduct({
 
   return (
     <>
-      <div className="bg-white my-8 p-8 rounded-lg">
+      <div className="bg-white my-8 p-8 rounded-lg w-60">
         <div className="flex items-center gap-2">
           <Image
             width={32}

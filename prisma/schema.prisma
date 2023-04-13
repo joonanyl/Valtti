@@ -8,17 +8,18 @@ datasource db {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String         @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?        @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
   products      Product[]
   reviews       Review[]
-  sellingOrders Order[]   @relation("seller")
-  buyingOrders  Order[]   @relation("buyer")
+  sellingOrders Order[]        @relation("seller")
+  buyingOrders  Order[]        @relation("buyer")
+  notifications Notification[]
 }
 
 model Product {
@@ -41,6 +42,7 @@ model Order {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
   totalPrice Float
+  message    String
   product    Product  @relation(fields: [productId], references: [id])
   productId  String
   buyer      User     @relation(name: "buyer", fields: [buyerId], references: [id])
@@ -94,4 +96,13 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Notification {
+  id          String   @id @default(cuid())
+  createdAt   DateTime @default(now())
+  read        Boolean  @default(false)
+  message     String
+  recipient   User     @relation(fields: [recipientId], references: [id])
+  recipientId String
 }

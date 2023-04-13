@@ -1,7 +1,8 @@
-export type ProductsType = {
+export type Products = {
   title: string
   id: string
   createdAt: string
+  profession: string
   user: {
     name: string
     image: string
