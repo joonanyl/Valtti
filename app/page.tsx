@@ -5,6 +5,7 @@ import AddProduct from "./components/AddProduct"
 import { useQuery } from "@tanstack/react-query"
 import Product from "./components/Product"
 import { Products } from "./types/Products"
+import { useColorMode } from "@chakra-ui/react"
 
 const getProducts = async () => {
   const response = await axios.get("/api/products/getProducts")
@@ -12,6 +13,7 @@ const getProducts = async () => {
 }
 
 export default function Home() {
+  const { toggleColorMode } = useColorMode()
   const { data, error, isLoading } = useQuery<Products[], AxiosError>({
     queryFn: getProducts,
     queryKey: ["products"],
@@ -24,15 +26,7 @@ export default function Home() {
 
   return (
     <main>
-      <div className="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
-        <input type="checkbox" />
-        <div className="collapse-title text-xl font-medium">
-          Add a new listing
-        </div>
-        <div className="collapse-content">
-          <AddProduct />
-        </div>
-      </div>
+      <AddProduct />
       <div className="flex justify-center align-middle gap-12">
         {data?.map((post) => (
           <Product

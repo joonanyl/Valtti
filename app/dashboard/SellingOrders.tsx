@@ -2,8 +2,18 @@
 
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import axios from "axios"
-import { Table } from "react-daisyui"
 import Link from "next/link"
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+} from "@chakra-ui/react"
 
 type Order = {
   buyer: {
@@ -51,33 +61,33 @@ export default function SellingOrders() {
   console.log(data)
 
   return (
-    <Table zebra={true}>
-      <Table.Head>
-        <span>Product</span>
-        <span>Message</span>
-        <span>Buyer</span>
-        <span>Price</span>
-        <span>Status</span>
-        <span></span>
-      </Table.Head>
-      <Table.Body>
-        {data?.map((order) => (
-          <Table.Row key={order.id}>
-            <Link href={`/product/${order.product.id}`}>
-              <span>{order.product.title}</span>
-            </Link>
-            <span>{order.message}</span>
-            <span>{order.buyer.name}</span>
-            <span>{order.product.price}</span>
-            <span>{order.status ? "completed" : "In progress"}</span>
-            <span>
-              <button className="btn" onClick={() => handleUpdate(order.id)}>
-                Mark done
-              </button>
-            </span>
-          </Table.Row>
-        ))}
-      </Table.Body>
-    </Table>
+    <TableContainer
+      mx={{ base: "4", md: "6" }}
+      borderColor="gray.200"
+      borderWidth="1px"
+      rounded="lg">
+      <Table variant={"striped"}>
+        <Thead>
+          <Tr>
+            <Th>Product</Th>
+            <Th>Message</Th>
+            <Th>Buyer</Th>
+            <Th>Price</Th>
+            <Th>Status</Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {data?.map((order) => (
+            <Tr key={order.id}>
+              <Td>{order.product.title}</Td>
+              <Td>{order.message}</Td>
+              <Td>{order.buyer.name}</Td>
+              <Td>{order.product.price}</Td>
+              <Td>{order.status ? "✅" : "❌"}</Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+    </TableContainer>
   )
 }

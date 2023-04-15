@@ -49,71 +49,61 @@ export default function CreateProduct() {
   }
 
   return (
-    <form onSubmit={submitProduct} className="bg-gray-700 my-8 p-8 rounded-md">
-      <h1 className="font-bold text-lg text-center py-2">Add a new listing</h1>
-      <div className="flex flex-col my-4">
-        <p className="font-bold text-md">Title</p>
+    <form onSubmit={submitProduct}>
+      <h1>Add a new listing</h1>
+      <div>
+        <p>Title</p>
         <textarea
           onChange={(e) => setTitle(e.target.value)}
           name="title"
           value={title}
-          placeholder="Title"
-          className="p-4 text-lg rounded-md my-2 bg-gray-200"></textarea>
+          placeholder="Title"></textarea>
       </div>
-      <div className="flex items-center gap-2">
-        <p
-          className={`font-bold text-sm ${
-            title.length > 300 ? "text-red-700" : "text-gray-700"
-          }`}>{`${title.length} / 300`}</p>
-      </div>
-      <div className="flex flex-col my-4">
-        <p className="font-bold text-md">Description</p>
+      <p
+        className={`font-bold text-sm ${
+          title.length > 300 ? "text-red-700" : "text-gray-700"
+        }`}>{`${title.length} / 300`}</p>
+      <div>
+        <p>Description</p>
         <textarea
           onChange={(e) => setDescription(e.target.value)}
           name="description"
           value={description}
-          placeholder="Description"
-          className="p-4 text-lg rounded-md my-2 bg-gray-200"></textarea>
+          placeholder="Description"></textarea>
         <p
           className={`font-bold text-sm ${
             description.length > 1500 ? "text-red-700" : "text-gray-700"
           }`}>{`${description.length} / 1500`}</p>
       </div>
-      <div className="flex flex-col my-4">
-        <p className="font-bold text-md">Price</p>
+      <div>
+        <p>Price</p>
         <input
           step="0.01"
           min="0"
           type="number"
           onChange={(e) => setPrice(parseFloat(e.target.value))}
           name="price"
-          value={price}
-          className="p-4 text-lg rounded-md my-2 bg-gray-200"></input>
+          value={price}></input>
       </div>
-      <div className="flex flex-col my-4">
-        <p className="font-bold text-md">Location</p>
+      <div>
+        <p>Location</p>
         <input
           type="text"
           onChange={(e) => setLocation(e.target.value)}
           name="location"
           value={location}
-          placeholder="Location"
-          className="p-4 text-lg rounded-md my-2 bg-gray-200"></input>
+          placeholder="Location"></input>
       </div>
-      <div className="flex flex-col my-4">
-        <p className="font-bold text-md">profession</p>
+      <div>
+        <p>Profession</p>
         <input
           type="text"
           onChange={(e) => setProfession(e.target.value)}
           name="profession"
           value={profession}
-          placeholder="profession of work"
-          className="p-4 text-lg rounded-md my-2 bg-gray-200"></input>
+          placeholder="profession of work"></input>
       </div>
-      <button
-        disabled={isDisabled}
-        className="text-sm bg-teal-600 text-white py-2 px-6 rounded-xl disabled:opacity-25"
-        type="submit">
+      <button disabled={isDisabled} type="submit">
         Create
       </button>
     </form>

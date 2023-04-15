@@ -1,13 +1,28 @@
 "use client"
 
 import Image from "next/image"
-import Link from "next/link"
 import photographyPicture from "../../public/camera-1239384_1920.jpg"
 import designPicture from "../../public/plans-1867745_1920.jpg"
 import dogPicture from "../../public/dog-4259565_1920.jpg"
-import { useState } from "react"
-import { Button, Modal } from "react-daisyui"
 import OrderModal from "./OrderModal"
+
+import {
+  Box,
+  chakra,
+  Container,
+  Stack,
+  Text,
+  Flex,
+  VStack,
+  Button,
+  Heading,
+  SimpleGrid,
+  StackDivider,
+  useColorModeValue,
+  VisuallyHidden,
+  List,
+  ListItem,
+} from "@chakra-ui/react"
 
 type ProductProps = {
   id: string
@@ -34,16 +49,9 @@ export default function ProductDetail({
   title,
   reviews,
   description,
-  slug,
   price,
   profession,
 }: ProductProps) {
-  const [showModal, setShowModal] = useState(false)
-
-  const toggleVisible = () => {
-    setShowModal(!showModal)
-  }
-
   const ratingAverage: number = reviews
     ? reviews?.reduce((acc, review) => acc + review.rating, 0) / reviews?.length
     : 0
@@ -59,7 +67,55 @@ export default function ProductDetail({
   }
 
   return (
-    <div className="bg-base-300 text-white my-4 px-8 rounded-lg max-h-2xl flex flex-col justify-center">
+    <Container maxW={"7xl"}>
+      <SimpleGrid
+        columns={{ base: 1, lg: 2 }}
+        spacing={{ base: 8, md: 10 }}
+        py={{ base: 18, md: 24 }}>
+        <Flex>
+          <Image
+            src={img}
+            alt="product picture"
+            sizes="100vw"
+            className="rounded-md"
+            style={{ objectFit: "cover" }}
+          />
+        </Flex>
+        <Stack spacing={{ base: 6, md: 10 }}>
+          <Box as={"header"}>
+            <Heading
+              lineHeight={1.1}
+              fontWeight={600}
+              fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}>
+              {title}
+            </Heading>
+            <Text
+              color={useColorModeValue("gray.900", "gray.400")}
+              fontWeight={300}
+              fontSize={"2xl"}>
+              {`alk. ${price}€`}
+            </Text>
+          </Box>
+
+          <Stack
+            spacing={{ base: 4, sm: 6 }}
+            direction={"column"}
+            divider={
+              <StackDivider
+                borderColor={useColorModeValue("gray.200", "gray.600")}
+              />
+            }>
+            <VStack spacing={{ base: 4, sm: 6 }}>
+              <Text fontSize={"lg"}>{description}</Text>
+            </VStack>
+          </Stack>
+        </Stack>
+      </SimpleGrid>
+    </Container>
+  )
+
+  return (
+    <div className="bg-base-300 my-4 px-8 rounded-lg max-h-2xl flex flex-col justify-center">
       <div className="flex justify-center">
         <Image className="my-6" src={img} alt="Photography" />
       </div>
@@ -86,10 +142,7 @@ export default function ProductDetail({
           </h3>
           <p className="text-sm font-bold">{`(${reviews?.length})`}</p>
         </div>
-        <Button className="text-white" onClick={toggleVisible}>
-          Order
-        </Button>
-        <OrderModal productId={id} open={showModal} onClose={toggleVisible} />
+        <OrderModal productId={id} />
       </div>
     </div>
   )

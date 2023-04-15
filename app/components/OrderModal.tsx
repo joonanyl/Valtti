@@ -1,8 +1,25 @@
+"use client"
+
 import { useState } from "react"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query"
 import axios, { AxiosError } from "axios"
 import toast from "react-hot-toast"
-import { Button, Modal, Textarea } from "react-daisyui"
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  Textarea,
+  useDisclosure,
+} from "@chakra-ui/react"
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+} from "@chakra-ui/react"
 
 interface NewOrder {
   productId: string
@@ -10,19 +27,13 @@ interface NewOrder {
 }
 
 type OrderModalProps = {
-  open: boolean
-  onClose: () => void
   productId: string
 }
 
-export default function OrderModal({
-  open,
-  onClose,
-  productId,
-}: OrderModalProps) {
+export default function OrderModal({ productId }: OrderModalProps) {
   const [message, setMessage] = useState("")
   const [isDisabled, setIsDisabled] = useState(false)
-  const queryClient = useQueryClient()
+  const { isOpen, onOpen, onClose } = useDisclosure()
 
   const { mutate } = useMutation(
     async (newOrder: NewOrder) =>
@@ -51,35 +62,34 @@ export default function OrderModal({
   }
 
   return (
-    <Modal open={open}>
-      <Modal.Header className="font-bold text-center">
-        Order a service
-      </Modal.Header>
-      <Button
-        size="sm"
-        shape="circle"
-        className="absolute right-5 top-5"
-        onClick={onClose}>
-        ✕
-      </Button>
-      <Modal.Body>
-        <form onSubmit={submitOrder}>
-          <label className="label">
-            <span className="label-text">Message</span>
-          </label>
-          <Textarea
-            className="w-full"
-            placeholder="Provide details of what you wish from the service"
-            value={message}
-            name="message"
-            onChange={(e) => setMessage(e.target.value)}></Textarea>
-        </form>
-      </Modal.Body>
-      <Modal.Actions>
-        <Button disabled={isDisabled} onClick={submitOrder} type="submit">
-          Order
-        </Button>
-      </Modal.Actions>
-    </Modal>
+    <>
+      <Button onClick={onOpen}>Order</Button>
+
+      <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Order a service</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <form onSubmit={submitOrder}>
+              <FormControl id="message">
+                <FormLabel>Message</FormLabel>
+                <Textarea
+                  placeholder="Provide details of what you wish from the service"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
+                />
+              </FormControl>
+            </form>
+          </ModalBody>
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3}>
+              Order
+            </Button>
+            <Button onClick={onClose}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   )
 }
