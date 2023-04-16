@@ -21,8 +21,6 @@ export default function Home() {
   if (error) return <div>Error: {error.message}</div>
   if (isLoading) return <p>Loading...</p>
 
-  console.log(data)
-
   return (
     <main>
       <CreateProduct />

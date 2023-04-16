@@ -47,17 +47,15 @@ export default function SellingOrders() {
 
   const handleUpdate = async (orderId: string) => {
     try {
-      console.log(orderId)
       await axios.put(`/api/orders/${orderId}?status=true`)
       queryClient.invalidateQueries(["sellingOrders"])
-    } catch {
+    } catch (err) {
       console.log(error)
     }
   }
 
   if (isLoading) return <h1 className="my-4">Orders are loading...</h1>
   if (error) return <h1>Error....</h1>
-  console.log(data)
 
   return (
     <TableContainer

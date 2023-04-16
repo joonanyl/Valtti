@@ -46,11 +46,10 @@ export default function OrderModal({ productId }: OrderModalProps) {
         setIsDisabled(false)
       },
       onSuccess: (data) => {
-        console.log(data)
         toast.success("Your order has been created! 🎉")
-        // queryClient.invalidateQueries(["orders"]) ?
         setMessage("")
         setIsDisabled(false)
+        onClose()
       },
     }
   )
@@ -63,7 +62,17 @@ export default function OrderModal({ productId }: OrderModalProps) {
 
   return (
     <>
-      <Button onClick={onOpen}>Order</Button>
+      <Button
+        className="bg-gradient-to-r from-teal-400 to-cyan-400"
+        onClick={onOpen}
+        rounded={"none"}
+        w={"full"}
+        mt={8}
+        size={"lg"}
+        py={"7"}
+        _hover={{ boxShadow: "xl" }}>
+        Tilaa
+      </Button>
 
       <Modal closeOnOverlayClick={false} isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
@@ -71,22 +80,25 @@ export default function OrderModal({ productId }: OrderModalProps) {
           <ModalHeader>Order a service</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <form onSubmit={submitOrder}>
-              <FormControl id="message">
-                <FormLabel>Message</FormLabel>
-                <Textarea
-                  placeholder="Provide details of what you wish from the service"
-                  value={message}
-                  onChange={(e) => setMessage(e.target.value)}
-                />
-              </FormControl>
-            </form>
+            <FormControl id="message">
+              <FormLabel>Message</FormLabel>
+              <Textarea
+                placeholder="Provide details of what you wish from the service"
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+              />
+            </FormControl>
           </ModalBody>
           <ModalFooter>
-            <Button colorScheme="blue" mr={3}>
-              Order
+            <Button
+              className="bg-gradient-to-r from-teal-400 to-cyan-400"
+              _hover={{ boxShadow: "lg" }}
+              mr={3}
+              onClick={submitOrder}
+              isDisabled={isDisabled}>
+              Tilaa
             </Button>
-            <Button onClick={onClose}>Cancel</Button>
+            <Button onClick={onClose}>Peruuta</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>

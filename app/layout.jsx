@@ -2,6 +2,7 @@ import "./globals.css"
 import Nav from "./auth/Nav"
 import QueryWrapper from "./auth/QueryWrapper"
 import { Providers } from "./providers"
+import Footer from "./components/Footer"
 
 export default function RootLayout({ children }) {
   return (
@@ -12,6 +13,7 @@ export default function RootLayout({ children }) {
           <QueryWrapper>
             <Nav />
             {children}
+            <Footer />
           </QueryWrapper>
         </Providers>
       </body>

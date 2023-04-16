@@ -34,13 +34,11 @@ export default function EditProduct({
       await axios.delete("/api/products/deleteProduct", { data: id }),
     {
       onError: (error) => {
-        console.log(error)
         if (error instanceof AxiosError) {
           toast.error("Error deleting the product")
         }
       },
       onSuccess: (data) => {
-        console.log(data)
         toast.success("The product has been deleted")
         queryClient.invalidateQueries(["userProducts"])
       },

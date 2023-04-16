@@ -20,7 +20,6 @@ export default function UserProducts() {
   })
 
   if (isLoading) return <h1>Products are loading...</h1>
-  console.log(data)
 
   return (
     <SimpleGrid mt={20} columns={2} spacing={"20px"}>

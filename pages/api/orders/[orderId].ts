@@ -30,11 +30,9 @@ export default async function handler(
 
   if (req.method === "PUT") {
     try {
-      console.log("QUERY:\n", req.query)
       const { orderId } = req.query
       const { status } = req.query
       const statusValue = !!status && status.toString().toLowerCase() === "true"
-      console.log(orderId)
 
       const updatedOrder = await prisma.order.update({
         where: {
@@ -54,8 +52,6 @@ export default async function handler(
           where: { id: orderId },
         })
         .buyer()
-
-      console.log(seller)
 
       const newNotification = await prisma.notification.create({
         data: {

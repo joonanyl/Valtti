@@ -43,9 +43,6 @@ export default function OrderTabs() {
     return <p>Something went wrong...</p>
   }
 
-  console.log(buyingOrders)
-  console.log(sellingOrders)
-
   return (
     <Tabs isLazy>
       <TabList>

@@ -47,7 +47,6 @@ export default function CreateProduct() {
         setIsDisabled(false)
       },
       onSuccess: (data) => {
-        console.log(data)
         toast.success("Product has been created 🎉")
         queryClient.invalidateQueries(["products"])
         setTitle("")
@@ -67,8 +66,8 @@ export default function CreateProduct() {
       minH={"100vh"}
       align={"center"}
       justify={"center"}
-      bg={useColorModeValue("gray.50", "gray.800")}>
-      <Stack spacing={8} mx={"auto"} maxW={"2xl"} py={12}>
+      bg={useColorModeValue("gray.50", "gray.700")}>
+      <Stack spacing={8} mx={"auto"} w={"2xl"} py={12}>
         <Stack align={"center"}>
           <Heading fontSize={"4xl"} textAlign={"center"}>
             Lisää uusi ilmoitus
@@ -77,7 +76,7 @@ export default function CreateProduct() {
         <Box
           rounded={"lg"}
           boxShadow={"lg"}
-          bg={useColorModeValue("white", "gray.700")}
+          bg={useColorModeValue("white", "gray.800")}
           p={8}
           px={{ base: "10", sm: "10", md: "20", lg: "40" }}
           w={"100%"}>
@@ -85,6 +84,7 @@ export default function CreateProduct() {
             <FormControl id="title" isRequired>
               <FormLabel>Otsikko</FormLabel>
               <Input
+                size={"lg"}
                 type="text"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
@@ -93,6 +93,7 @@ export default function CreateProduct() {
             <FormControl id="description">
               <FormLabel>Kuvaus</FormLabel>
               <Textarea
+                size={"lg"}
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
               />
@@ -100,6 +101,7 @@ export default function CreateProduct() {
             <FormControl id="profession">
               <FormLabel>Ala</FormLabel>
               <Input
+                size={"lg"}
                 type="text"
                 value={profession}
                 onChange={(e) => setProfession(e.target.value)}
@@ -108,6 +110,7 @@ export default function CreateProduct() {
             <FormControl id="price">
               <FormLabel>{"Hinnat (alk)"}</FormLabel>
               <NumberInput
+                size={"lg"}
                 min={0}
                 defaultValue={10}
                 value={price}
@@ -118,6 +121,7 @@ export default function CreateProduct() {
             <FormControl id="location">
               <FormLabel>Sijainti</FormLabel>
               <Input
+                size={"lg"}
                 type="text"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
@@ -139,66 +143,5 @@ export default function CreateProduct() {
         </Box>
       </Stack>
     </Flex>
-  )
-
-  return (
-    <form onSubmit={submitProduct}>
-      <h1>Add a new listing</h1>
-      <div>
-        <p>Title</p>
-        <textarea
-          onChange={(e) => setTitle(e.target.value)}
-          name="title"
-          value={title}
-          placeholder="Title"></textarea>
-      </div>
-      <p
-        className={`font-bold text-sm ${
-          title.length > 300 ? "text-red-700" : "text-gray-700"
-        }`}>{`${title.length} / 300`}</p>
-      <div>
-        <p>Description</p>
-        <textarea
-          onChange={(e) => setDescription(e.target.value)}
-          name="description"
-          value={description}
-          placeholder="Description"></textarea>
-        <p
-          className={`font-bold text-sm ${
-            description.length > 1500 ? "text-red-700" : "text-gray-700"
-          }`}>{`${description.length} / 1500`}</p>
-      </div>
-      <div>
-        <p>Price</p>
-        <input
-          step="0.01"
-          min="0"
-          type="number"
-          onChange={(e) => setPrice(parseFloat(e.target.value))}
-          name="price"
-          value={price}></input>
-      </div>
-      <div>
-        <p>Location</p>
-        <input
-          type="text"
-          onChange={(e) => setLocation(e.target.value)}
-          name="location"
-          value={location}
-          placeholder="Location"></input>
-      </div>
-      <div>
-        <p>Profession</p>
-        <input
-          type="text"
-          onChange={(e) => setProfession(e.target.value)}
-          name="profession"
-          value={profession}
-          placeholder="profession of work"></input>
-      </div>
-      <button disabled={isDisabled} type="submit">
-        Create
-      </button>
-    </form>
   )
 }

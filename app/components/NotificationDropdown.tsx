@@ -24,8 +24,6 @@ export function NotificationDropdown() {
     queryKey: ["notifications"],
   })
 
-  console.log(data)
-
   return (
     <Menu>
       <MenuButton

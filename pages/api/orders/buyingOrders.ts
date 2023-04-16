@@ -29,7 +29,6 @@ export default async function handler(
           product: true,
         },
       })
-      console.log(data)
       return res.status(200).json(data)
     } catch (err) {
       res.status(404).json({ err: "Error has occurred while fetching orders." })

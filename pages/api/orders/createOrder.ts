@@ -25,7 +25,6 @@ export default async function handler(
       where: { id: productId },
       include: { user: true },
     })
-    console.log(product)
 
     const buyer = await prisma.user.findUnique({
       where: { email: session.user?.email! },
@@ -49,7 +48,6 @@ export default async function handler(
       })
       res.status(201).json(order)
     } catch (error) {
-      console.log(error)
       res
         .status(500)
         .json({ error: "Error has occurred while creating your order." })

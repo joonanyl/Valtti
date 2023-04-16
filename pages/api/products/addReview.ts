@@ -18,13 +18,10 @@ export default async function handler(
     where: { email: session?.user?.email ?? undefined },
   })
 
-  console.log(user)
-
   if (req.method === "POST") {
-    const { title, productId, rating } = req.body.data
-    console.log(rating)
+    const { content, productId, rating } = req.body.data
 
-    if (!title.length) {
+    if (!content.length) {
       return res
         .status(401)
         .json({ message: "You cannot create an empty review" })
@@ -32,7 +29,7 @@ export default async function handler(
     try {
       const result = await prisma.review.create({
         data: {
-          content: title,
+          content,
           userId: user!.id,
           productId,
           rating,

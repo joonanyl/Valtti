@@ -47,7 +47,6 @@ export default function AddReview({ id }: ReviewProps) {
 
   const handleRatingChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = parseInt(e.target.value)
-    console.log(value)
     setRating(value)
   }
 

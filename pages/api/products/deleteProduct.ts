@@ -17,7 +17,6 @@ export default async function handler(
 
     try {
       const productId = req.body
-      console.log(productId)
       const result = await prisma.product.delete({
         where: {
           id: productId,

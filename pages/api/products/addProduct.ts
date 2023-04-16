@@ -19,7 +19,6 @@ export default async function handler(
         .json({ message: "You need to be signed in to create a product." })
 
     const { title, description, price, location, profession } = req.body
-    console.log(req.body)
 
     const user = await prisma.user.findUnique({
       where: { email: session.user!.email! },

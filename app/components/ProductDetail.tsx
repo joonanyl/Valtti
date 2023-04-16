@@ -19,9 +19,8 @@ import {
   SimpleGrid,
   StackDivider,
   useColorModeValue,
-  VisuallyHidden,
-  List,
-  ListItem,
+  Avatar,
+  HStack,
 } from "@chakra-ui/react"
 
 type ProductProps = {
@@ -105,60 +104,20 @@ export default function ProductDetail({
                 borderColor={useColorModeValue("gray.200", "gray.600")}
               />
             }>
+            <HStack>
+              <Avatar src={avatar} />
+              <Text fontSize={"lg"} textAlign={"left"}>
+                {name}
+              </Text>
+            </HStack>
             <VStack spacing={{ base: 4, sm: 6 }}>
               <Text fontSize={"lg"}>{description}</Text>
             </VStack>
           </Stack>
-          <Button
-            className="bg-gray-900"
-            rounded={"none"}
-            w={"full"}
-            mt={8}
-            size={"lg"}
-            py={"7"}
-            color={useColorModeValue("white", "gray.900")}
-            textTransform={"uppercase"}
-            _hover={{
-              transform: "translateY(2px)",
-              boxShadow: "lg",
-            }}>
-            Tilaa
-          </Button>
+
+          <OrderModal productId={id} />
         </Stack>
       </SimpleGrid>
     </Container>
-  )
-
-  return (
-    <div className="bg-base-300 my-4 px-8 rounded-lg max-h-2xl flex flex-col justify-center">
-      <div className="flex justify-center">
-        <Image className="my-6" src={img} alt="Photography" />
-      </div>
-      <h2 className="font-bold text-2xl text-center my-4">{title}</h2>
-      <div className="flex items-center align-middle justify-between mx-2">
-        <div className="flex items-center gap-2">
-          <Image
-            className="rounded-full"
-            width={32}
-            height={32}
-            src={avatar}
-            alt="avatar"
-          />
-          <h3 className="font-bold text-md">{name}</h3>
-        </div>
-        <h3 className="font-bold text-md">Starting from {price}€</h3>
-      </div>
-      <div className="my-2"></div>
-      <p className="p-2 text-md text-center">{description}</p>
-      <div className="flex items-center align-middle justify-between m-4">
-        <div className="flex items-center gap-2">
-          <h3 className="text-xl font-bold">
-            {`⭐️ ${ratingAverage.toFixed(1)}`}
-          </h3>
-          <p className="text-sm font-bold">{`(${reviews?.length})`}</p>
-        </div>
-        <OrderModal productId={id} />
-      </div>
-    </div>
   )
 }

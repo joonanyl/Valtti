@@ -93,8 +93,6 @@ export default function ProductCard({
     img = photographyPicture
   }
 
-  console.log(profession)
-
   return (
     <Flex w="full" alignItems="center" justifyContent="center">
       <Link href={`/product/${id}`}>

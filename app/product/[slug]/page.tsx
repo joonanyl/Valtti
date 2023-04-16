@@ -5,10 +5,9 @@ import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
 import AddReview from "@/app/components/AddReview"
 import Image from "next/image"
-
-/*
-    TODO: LUO TÄHÄN OIKEA POSTDETAILVIEW
-*/
+import CreateReviewForm from "@/app/components/CreateReviewForm"
+import ReviewCard from "@/app/components/ReviewCard"
+import { VStack, Heading } from "@chakra-ui/react"
 
 type URL = {
   params: {
@@ -17,7 +16,7 @@ type URL = {
 }
 
 interface Review {
-  id: number
+  id: string
   user: {
     image: string
     name: string
@@ -39,43 +38,37 @@ export default function ProductDetailPage(url: URL) {
   })
 
   if (isLoading) return "Loading..."
-  if (data) {
-    console.log(data)
 
-    return (
-      <div>
-        <ProductDetail
-          id={data.id}
-          name={data.user.name}
-          avatar={data.user.image}
-          title={data.title}
-          reviews={data.reviews}
-          description={data.description}
-          price={data.price}
-          slug={url.params.slug}
-          profession={data.profession}
-        />
-        <AddReview id={data?.id} />
+  return (
+    <>
+      <ProductDetail
+        id={data.id}
+        name={data.user.name}
+        avatar={data.user.image}
+        title={data.title}
+        reviews={data.reviews}
+        description={data.description}
+        price={data.price}
+        slug={url.params.slug}
+        profession={data.profession}
+      />
+      <CreateReviewForm productId={data?.id} />
+      <VStack mx={{ base: 2, lg: 28 }} my={8} spacing={6}>
+        <Heading fontSize={"4xl"} textAlign={"center"} my={6}>
+          Arvostelut
+        </Heading>
         {data?.reviews?.map((review: Review) => (
-          <div key={review.id} className="my-6 bg-white p-8 rounded-md">
-            <div className="flex items-center gap-2">
-              <Image
-                width={24}
-                height={24}
-                src={review.user?.image}
-                alt="avatar"
-                className="rounded-full"
-              />
-              <h3 className="font-bold text-gray-700">{review.user?.name}</h3>
-              <h2 className="text-sm text-gray-700">{review.createdAt}</h2>
-            </div>
-            <div className="py-4 text-gray-500">{review.content}</div>
-            <h3 className="text-xl font-bold text-gray-700">
-              {`⭐️ ${review.rating}`}
-            </h3>
-          </div>
+          <ReviewCard
+            key={review.id}
+            content={review?.content!}
+            createdAt={review.createdAt}
+            id={review.id}
+            rating={review.rating}
+            userImage={review.user.image}
+            userName={review.user.name}
+          />
         ))}
-      </div>
-    )
-  }
+      </VStack>
+    </>
+  )
 }
