@@ -11,7 +11,6 @@ import {
   Tr,
   Th,
   Td,
-  TableCaption,
   TableContainer,
 } from "@chakra-ui/react"
 
@@ -34,7 +33,7 @@ type Order = {
 }
 
 const fetchUserSellingOrders = async () => {
-  const response = await axios.get("/api/orders/userOrders")
+  const response = await axios.get("/api/orders/sellingOrders")
   return response.data
 }
 

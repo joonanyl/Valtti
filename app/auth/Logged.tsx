@@ -7,9 +7,8 @@ import {
   MenuButton,
   MenuList,
   MenuItem,
-  chakra,
-  Button,
   Avatar,
+  Button,
 } from "@chakra-ui/react"
 
 type User = {
@@ -32,7 +31,7 @@ export default function Logged({ image }: User) {
           <MenuItem>
             <Link href={"/dashboard"}>Profile</Link>
           </MenuItem>
-          <MenuItem onClick={() => signOut}>Sign out</MenuItem>
+          <MenuItem onClick={() => signOut()}>Sign out</MenuItem>
         </MenuList>
       </Menu>
     </li>

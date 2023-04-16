@@ -1,13 +1,12 @@
 "use client"
 
 import { signIn } from "next-auth/react"
+import { Button } from "@chakra-ui/react"
 
 export default function Login() {
   return (
     <li>
-      <button onClick={() => signIn()} className="btn disabled:opacity-25">
-        Sign in
-      </button>
+      <Button onClick={() => signIn()}>Sign in</Button>
     </li>
   )
 }

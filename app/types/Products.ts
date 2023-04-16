@@ -3,6 +3,7 @@ export type Products = {
   id: string
   createdAt: string
   profession: string
+  price: number
   user: {
     name: string
     image: string

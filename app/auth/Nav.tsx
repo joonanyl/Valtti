@@ -12,7 +12,7 @@ export default async function Nav() {
   console.log(session)
 
   return (
-    <nav className="navbar flex justify-between items-center pt-8 mx-4">
+    <nav className="navbar flex justify-between items-center py-8 mx-6">
       <Link href={"/"}>
         <Image width={100} height={100} src="/logo_light.png" alt="logo" />
       </Link>

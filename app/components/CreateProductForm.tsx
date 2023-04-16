@@ -4,6 +4,20 @@ import { useState } from "react"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import axios, { AxiosError } from "axios"
 import toast from "react-hot-toast"
+import {
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Stack,
+  Heading,
+  useColorModeValue,
+  Textarea,
+  Button,
+  NumberInput,
+  NumberInputField,
+} from "@chakra-ui/react"
 
 export default function CreateProduct() {
   const [title, setTitle] = useState("")
@@ -47,6 +61,85 @@ export default function CreateProduct() {
     setIsDisabled(true)
     mutate({ title, description, price, location, profession })
   }
+
+  return (
+    <Flex
+      minH={"100vh"}
+      align={"center"}
+      justify={"center"}
+      bg={useColorModeValue("gray.50", "gray.800")}>
+      <Stack spacing={8} mx={"auto"} maxW={"2xl"} py={12}>
+        <Stack align={"center"}>
+          <Heading fontSize={"4xl"} textAlign={"center"}>
+            Lisää uusi ilmoitus
+          </Heading>
+        </Stack>
+        <Box
+          rounded={"lg"}
+          boxShadow={"lg"}
+          bg={useColorModeValue("white", "gray.700")}
+          p={8}
+          px={{ base: "10", sm: "10", md: "20", lg: "40" }}
+          w={"100%"}>
+          <Stack spacing={4}>
+            <FormControl id="title" isRequired>
+              <FormLabel>Otsikko</FormLabel>
+              <Input
+                type="text"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+              />
+            </FormControl>
+            <FormControl id="description">
+              <FormLabel>Kuvaus</FormLabel>
+              <Textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+              />
+            </FormControl>
+            <FormControl id="profession">
+              <FormLabel>Ala</FormLabel>
+              <Input
+                type="text"
+                value={profession}
+                onChange={(e) => setProfession(e.target.value)}
+              />
+            </FormControl>
+            <FormControl id="price">
+              <FormLabel>{"Hinnat (alk)"}</FormLabel>
+              <NumberInput
+                min={0}
+                defaultValue={10}
+                value={price}
+                onChange={(value) => setPrice(parseFloat(value))}>
+                <NumberInputField />
+              </NumberInput>
+            </FormControl>
+            <FormControl id="location">
+              <FormLabel>Sijainti</FormLabel>
+              <Input
+                type="text"
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+              />
+            </FormControl>
+            <Button
+              className="bg-gradient-to-r from-teal-400 to-cyan-400"
+              mt={8}
+              size={"lg"}
+              w={"full"}
+              color={useColorModeValue("gray.900", "white")}
+              _hover={{
+                boxShadow: "xl",
+              }}
+              onClick={submitProduct}>
+              Create
+            </Button>
+          </Stack>
+        </Box>
+      </Stack>
+    </Flex>
+  )
 
   return (
     <form onSubmit={submitProduct}>

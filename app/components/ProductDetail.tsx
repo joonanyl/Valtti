@@ -109,6 +109,21 @@ export default function ProductDetail({
               <Text fontSize={"lg"}>{description}</Text>
             </VStack>
           </Stack>
+          <Button
+            className="bg-gray-900"
+            rounded={"none"}
+            w={"full"}
+            mt={8}
+            size={"lg"}
+            py={"7"}
+            color={useColorModeValue("white", "gray.900")}
+            textTransform={"uppercase"}
+            _hover={{
+              transform: "translateY(2px)",
+              boxShadow: "lg",
+            }}>
+            Tilaa
+          </Button>
         </Stack>
       </SimpleGrid>
     </Container>
