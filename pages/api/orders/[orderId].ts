@@ -30,7 +30,9 @@ export default async function handler(
 
   if (req.method === "PUT") {
     try {
-      const { orderId } = req.query
+      const orderId: string | undefined = Array.isArray(req.query.orderId)
+        ? req.query.orderId[0]
+        : req.query.orderId
       const { status } = req.query
       const statusValue = !!status && status.toString().toLowerCase() === "true"
 
