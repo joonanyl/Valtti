@@ -11,6 +11,7 @@ export default function NavButtons() {
       <IconButton
         onClick={toggleColorMode}
         aria-label="Change color mode"
+        size={"lg"}
         icon={colorMode === "light" ? <MoonIcon /> : <SunIcon />}
       />
       <NotificationDropdown />

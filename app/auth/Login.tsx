@@ -6,7 +6,7 @@ import { Button } from "@chakra-ui/react"
 export default function Login() {
   return (
     <li>
-      <Button onClick={() => signIn()}>Sign in</Button>
+      <Button onClick={() => signIn()}>Kirjaudu</Button>
     </li>
   )
 }

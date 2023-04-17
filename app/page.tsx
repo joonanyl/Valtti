@@ -4,8 +4,8 @@ import axios, { AxiosError } from "axios"
 import CreateProduct from "./components/CreateProductForm"
 import { useQuery } from "@tanstack/react-query"
 import ProductCard from "./components/ProductCard"
-import { Products } from "./types/Products"
 import { Box, Heading, SimpleGrid } from "@chakra-ui/react"
+import { Product } from "./types/Product"
 
 const getProducts = async () => {
   const response = await axios.get("/api/products/getProducts")
@@ -13,7 +13,7 @@ const getProducts = async () => {
 }
 
 export default function Home() {
-  const { data, error, isLoading } = useQuery<Products[], AxiosError>({
+  const { data, error, isLoading } = useQuery<Product[], AxiosError>({
     queryFn: getProducts,
     queryKey: ["products"],
   })
@@ -34,18 +34,19 @@ export default function Home() {
         </Heading>
         <SimpleGrid
           mt={20}
-          columns={{ base: 1, md: 2, lg: 3 }}
-          spacing={"20px"}>
-          {data?.map((post) => (
+          columns={{ base: 1, md: 2, xl: 3 }}
+          spacingX={"5px"}
+          spacingY={"40px"}>
+          {data?.map((product) => (
             <ProductCard
-              key={post.id}
-              id={post.id}
-              name={post.user.name}
-              avatar={post.user.image}
-              title={post.title}
-              reviews={post?.reviews}
-              profession={post?.profession}
-              price={post?.price}
+              key={product.id}
+              id={product.id}
+              name={product.user?.name}
+              avatar={product.user?.image}
+              title={product.title}
+              reviews={product?.reviews}
+              profession={product?.profession}
+              price={product?.price}
             />
           ))}
         </SimpleGrid>

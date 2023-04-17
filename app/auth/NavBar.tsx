@@ -28,7 +28,7 @@ export default function NavBar({ user }: NavBarProps) {
         <Image width={100} height={100} src={logoSrc} alt="logo" />
       </Link>
       <div>
-        <ul className="flex items-center gap-6">
+        <ul className="flex items-center gap-4">
           {!user && <Login />}
           {user && (
             <>

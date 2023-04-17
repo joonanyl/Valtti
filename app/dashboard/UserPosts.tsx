@@ -22,7 +22,10 @@ export default function UserProducts() {
   if (isLoading) return <h1>Products are loading...</h1>
 
   return (
-    <SimpleGrid mt={20} columns={2} spacing={"20px"}>
+    <SimpleGrid
+      columns={{ base: 1, md: 2, xl: 3 }}
+      spacingX={"5px"}
+      spacingY={"40px"}>
       {data?.map((product) => (
         <ProductCard
           key={product.id}

@@ -10,7 +10,7 @@ import {
   VisuallyHidden,
 } from "@chakra-ui/react"
 import { Link } from "@chakra-ui/next-js"
-import { FaInstagram, FaTwitter, FaYoutube } from "react-icons/fa"
+import { FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa"
 import { useColorMode } from "@chakra-ui/react"
 import logoLight from "../../public/logo_light.png"
 import logoDark from "../../public/logo_dark.png"
@@ -60,14 +60,14 @@ export default function Footer() {
       <Container
         as={Stack}
         maxW={"6xl"}
-        py={4}
+        py={6}
         spacing={4}
         justify={"center"}
         align={"center"}>
         <Image src={logoSrc} alt="Logo" width={80} />
         <Stack direction={"row"} spacing={6}>
           <Link href={"/"}>Valtti</Link>
-          <Link href={"#"}>Meistä</Link>
+          <Link href={"#"}>UKK</Link>
           <Link href={"#"}>Blog</Link>
           <Link href={"#"}>Ota yhteyttä</Link>
         </Stack>
@@ -91,7 +91,7 @@ export default function Footer() {
               <FaTwitter />
             </SocialButton>
             <SocialButton label={"YouTube"} href={"#"}>
-              <FaYoutube />
+              <FaLinkedin />
             </SocialButton>
             <SocialButton label={"Instagram"} href={"#"}>
               <FaInstagram />
