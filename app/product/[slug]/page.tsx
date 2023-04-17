@@ -40,7 +40,7 @@ export default function ProductDetailPage(url: URL) {
   if (isLoading) return "Loading..."
 
   return (
-    <>
+    <main>
       <ProductDetail
         id={data.id}
         name={data.user.name}
@@ -69,6 +69,6 @@ export default function ProductDetailPage(url: URL) {
           />
         ))}
       </VStack>
-    </>
+    </main>
   )
 }

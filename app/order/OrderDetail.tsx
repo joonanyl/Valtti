@@ -27,7 +27,6 @@ export default function OrderDetail() {
           <ModalBody>
             <p>Moi</p>
           </ModalBody>
-
           <ModalFooter>
             <Button colorScheme="blue" mr={3} onClick={onClose}>
               Close

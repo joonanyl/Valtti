@@ -22,35 +22,37 @@ export default function Home() {
   if (isLoading) return <p>Loading...</p>
 
   return (
-    <main>
-      <CreateProduct />
-      <Box my={20}>
-        <Heading
-          lineHeight={1.1}
-          fontWeight={600}
-          fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
-          textAlign={"center"}>
-          Ilmoitukset
-        </Heading>
-        <SimpleGrid
-          mt={20}
-          columns={{ base: 1, md: 2, xl: 3 }}
-          spacingX={"5px"}
-          spacingY={"40px"}>
-          {data?.map((product) => (
-            <ProductCard
-              key={product.id}
-              id={product.id}
-              name={product.user?.name}
-              avatar={product.user?.image}
-              title={product.title}
-              reviews={product?.reviews}
-              profession={product?.profession}
-              price={product?.price}
-            />
-          ))}
-        </SimpleGrid>
-      </Box>
-    </main>
+    <>
+      <main>
+        <CreateProduct />
+        <Box my={20}>
+          <Heading
+            lineHeight={1.1}
+            fontWeight={600}
+            fontSize={{ base: "2xl", sm: "4xl", lg: "5xl" }}
+            textAlign={"center"}>
+            Ilmoitukset
+          </Heading>
+          <SimpleGrid
+            mt={20}
+            columns={{ base: 1, md: 2, xl: 3 }}
+            spacingX={{ md: "10px", lg: 0 }}
+            spacingY={"40px"}>
+            {data?.map((product) => (
+              <ProductCard
+                key={product.id}
+                id={product.id}
+                name={product.user?.name}
+                avatar={product.user?.image}
+                title={product.title}
+                reviews={product?.reviews}
+                profession={product?.profession}
+                price={product?.price}
+              />
+            ))}
+          </SimpleGrid>
+        </Box>
+      </main>
+    </>
   )
 }
