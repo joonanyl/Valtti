@@ -2,8 +2,6 @@
 
 import { useQuery } from "@tanstack/react-query"
 import axios from "axios"
-import { AuthProduct } from "../types/AuthProducts"
-import EditProduct from "../components/EditProduct"
 import ProductCard from "../components/ProductCard"
 import { SimpleGrid } from "@chakra-ui/react"
 import { Product } from "../types/Product"
