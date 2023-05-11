@@ -136,7 +136,8 @@ export default function CreateProduct() {
               _hover={{
                 boxShadow: "xl",
               }}
-              onClick={submitProduct}>
+              onClick={submitProduct}
+              isDisabled={isDisabled}>
               Create
             </Button>
           </Stack>
